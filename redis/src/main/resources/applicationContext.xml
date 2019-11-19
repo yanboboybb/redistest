@@ -18,12 +18,24 @@
 	<!--链接配置 -->
 	<bean id="jconnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		p:hostName="127.0.0.1" p:port="6379" p:password="rgPt1hBdqPtYJ0acpnfdmWbSHt09kH5T"
-		p:database="1" p:poolConfig-ref="jpoolConfig" />
+		p:hostName="192.168.1.58" p:port="7070" p:password="rgPt1hBdqPtYJ0acpnfdmWbSHt09kH5T"
+		p:database="3" p:poolConfig-ref="jpoolConfig" />
 
 	<!-- Redis模版类，用于操作redis -->
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
 		p:connectionFactory-ref="jconnectionFactory">
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
 	</bean>
 
 	<bean id="redisUtil" class="com.example.redis.dao.RedisUtils">
